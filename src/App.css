@@ -1,0 +1,41 @@
+.fiche {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.fiche h1 {
+  font-size: 50px;
+  margin-bottom: 30px;
+  color:palevioletred;
+
+}
+
+.fiche p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.fiche strong {
+  font-weight: bold;
+}
+.fiche img{
+ width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #fc74d8ef;
+  margin-bottom: 20px;
+}
+.fiche a{
+ display: inline-block;
+  margin-top: 25px;
+  padding: 12px 25px;
+  background-color: #c50b7d;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.fiche a:hover {
+  background-color: #9d9ba1;
+}
