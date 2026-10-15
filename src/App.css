@@ -1,6 +1,19 @@
 .fiche {
   text-align: center;
-  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+
+}
+.fiche > * {
+  border: 2px solid #7b9acc;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .fiche h1 {
@@ -26,7 +39,7 @@
   border: 4px solid #fc74d8ef;
   margin-bottom: 20px;
 }
-.fiche a{
+.fiche button{
  display: inline-block;
   margin-top: 25px;
   padding: 12px 25px;

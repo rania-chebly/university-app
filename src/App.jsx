@@ -1,33 +1,50 @@
-import './App.css'
+import './App.css';
+import StudentCard  from  "./components/StudentCard.jsx";
+import Header  from  "./components/Header.jsx";
+import Footer  from  './components/Footer.jsx'
+import Navbar  from  './components/Navbar.jsx'
 import MyImage from './assets/ranya.jpg'
+import Image1 from './assets/image1.jpg'
+import Image2 from './assets/image2.jpg'
+import Image3 from './assets/image3.jpg'
+const etudiants =[{nompr:"ranya chebli",email:"chiblirania1@gmail.com",tel:"20815709",filiere:"Génie logiciel et systèmes d'information",
+    groupe:"Glsi 2 B",ville:"nabeul", image :MyImage,},
+  {nompr:"Maram mabrouk",email:"Mabroukmaram@gmail.com",tel:"97814214",filiere:"Génie logiciel et systèmes d'information",
+    groupe:"Glsi 2 B",ville:"nabeul", image :Image1,},{nompr:"mohamed ben salem",email:"BenSalemmohamed@gmail.com",tel:"25712258",filiere:"Génie logiciel et systèmes d'information",
+    groupe:"Glsi 2 c",ville:"Mahdia", image :Image2,},{nompr:"Sami ben mohamed",email:"BenmohamedSami@gmail.com",tel:"55280147",filiere:"Génie logiciel et systèmes d'information",
+    groupe:"Glsi 2 d",ville:"Sousse", image :Image3,}];
 
-function App() {
-  const etudiant ={nompr:"rania chebli",email:"chiblirania1@gmail.com",tel:"20815709",filiere:"Génie logiciel et systèmes d'information",
-    groupe:"Glsi 2 B",ville:"nabeul", image :MyImage,};
 
+function App(){
 
-  
-  return (
+return (
+  <div>
+    <Header />
+
+    <Navbar />
+
+    <main id="etudiants" className="fiche">
+      {etudiants.map((etudiant) => (
+        <StudentCard
+          key={etudiant.email}
+          nompr={etudiant.nompr}
+          email={etudiant.email}
+          tel={etudiant.tel}
+          filiere={etudiant.filiere}
+          groupe={etudiant.groupe}
+          ville={etudiant.ville}
+          image={etudiant.image}
+        />
+      ))}
+    </main>
+
+    <Footer />
+  </div>
+);
+
    
-    <div className="fiche">
-      <img src={etudiant.image} alt="" />
-      <h1>Fiche étudiant</h1>
-
-      <p><strong>Nom & Prénom :</strong> {etudiant.nompr}</p>
-      <p><strong>Email :</strong> {etudiant.email}</p>
-      <p><strong>Téléphone :</strong> {etudiant.tel}</p>
-      <p><strong>Filière :</strong> {etudiant.filiere}</p>
-      <p><strong>Année d'étude :</strong> 2026/2027</p>
-      <p><strong>Groupe :</strong> {etudiant.groupe}</p>
-      <p><strong>Ville :</strong> {etudiant.ville}</p>
-     <a
-  href="https://mail.google.com/mail/?view=cm&fs=1&to=chiblirania1@gmail.com"
-  target="_blank"
-  rel="noopener noreferrer">
-  Contacter
-</a>
-    </div>
-  )
 }
 
-export default App
+export default App;
+
+
