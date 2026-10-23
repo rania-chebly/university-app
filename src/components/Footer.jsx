@@ -8,13 +8,15 @@ function Footer() {
         <div className="footer-logo">&lt;/&gt;</div>
 
         <div>
-          <h3>EduManage</h3>
-          <p>Votre espace de gestion des étudiants.</p>
+          <h3>StudentSpace</h3>
+          <br />
+          <p>contacter nous:</p><a href="https://www.studentspace.com" target='_blank'>"https://www.studentspace.com</a>
         </div>
       </div>
 
       <div className="footer-credit">
         <p>Réalisé par <strong>Rania Chebli</strong></p>
+
         <p>© 2026 StudentSpace — Tous droits réservés.</p>
       </div>
     </footer>
