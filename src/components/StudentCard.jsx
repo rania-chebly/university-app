@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 function StudentCard(props) {
-  const [showContact, setShowContact] = useState(false);
+  const [showStudent, setShowStudent] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [informations, setInformations] = useState({
     nompr: '',
@@ -54,15 +54,22 @@ function StudentCard(props) {
       <h1>Fiche étudiant</h1>
       {!isEditing && (
         <>
-          <p>
-            <strong>Nom &amp; Prénom :</strong> {props.nompr}
-          </p>
           <button
             type="button"
-            onClick={() => setShowContact((visible) => !visible)}
+            onClick={() => setShowStudent((visible) => !visible)}
           >
-            {showContact ? 'Masquer les coordonnées' : 'Afficher les coordonnées'}
+            {showStudent ? 'Masquer le nom et l’email' : 'Afficher le nom et l’email'}
           </button>
+          {showStudent && (
+            <>
+              <p>
+                <strong>Nom &amp; Prénom :</strong> {props.nompr}
+              </p>
+              <p>
+                <strong>Email :</strong> {props.email}
+              </p>
+            </>
+          )}
           <button type="button" onClick={commencerModification}>
             Modifier les informations
           </button>
@@ -95,11 +102,8 @@ function StudentCard(props) {
           </button>
         </form>
       )}
-      {!isEditing && showContact && (
+      {!isEditing && (
         <div>
-          <p>
-            <strong>Email :</strong> {props.email}
-          </p>
           <p>
             <strong>Téléphone :</strong> {props.tel}
           </p>
@@ -115,7 +119,7 @@ function StudentCard(props) {
           <p>
             <strong>Ville :</strong> {props.ville}
           </p>
-          <a href={`mailto:${props.email}`}>Contacter</a>
+          {showStudent && <a href={`mailto:${props.email}`}>Contacter</a>}
         </div>
       )}
     </div>

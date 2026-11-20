@@ -1,5 +1,6 @@
 import './App.css';
 import StudentCard from './components/StudentCard.jsx';
+import StudentForm from './components/StudentForm.jsx';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import Navbar from './components/Navbar.jsx';
@@ -13,6 +14,7 @@ import { useState } from 'react';
 function App() {
   const [etudiants, setEtudiants] = useState([
     {
+      id: 1,
       nompr: 'ranya chebli',
       email: 'chiblirania1@gmail.com',
       tel: '20815709',
@@ -22,6 +24,7 @@ function App() {
       image: MyImage,
     },
     {
+      id: 2,
       nompr: 'Maram mabrouk',
       email: 'Mabroukmaram@gmail.com',
       tel: '97814214',
@@ -31,6 +34,7 @@ function App() {
       image: Image1,
     },
     {
+      id: 3,
       nompr: 'mohamed ben salem',
       email: 'BenSalemmohamed@gmail.com',
       tel: '25712258',
@@ -40,6 +44,7 @@ function App() {
       image: Image2,
     },
     {
+      id: 4,
       nompr: 'Sami ben mohamed',
       email: 'BenmohamedSami@gmail.com',
       tel: '55280147',
@@ -57,6 +62,7 @@ function App() {
     filiere: '',
     groupe: '',
     ville: '',
+    image: null,
   });
   const [filiereChoisie, setFiliereChoisie] = useState('');
 
@@ -68,10 +74,13 @@ function App() {
 
   function handleChange(event) {
     const { name, value } = event.target;
+    const fieldValue = event.target.type === 'file'
+      ? event.target.files[0]
+      : value;
 
     setNouvelEtudiant((precedent) => ({
       ...precedent,
-      [name]: value,
+      [name]: fieldValue,
     }));
   }
 
@@ -82,12 +91,16 @@ function App() {
       return;
     }
 
-    const etudiantAjoute = {
-      ...nouvelEtudiant,
-      image: MyImage,
-    };
-
-    setEtudiants((precedents) => [...precedents, etudiantAjoute]);
+    setEtudiants((precedents) => [
+      ...precedents,
+      {
+        ...nouvelEtudiant,
+        id: Math.max(0, ...precedents.map((etudiant) => etudiant.id)) + 1,
+        image: nouvelEtudiant.image
+          ? URL.createObjectURL(nouvelEtudiant.image)
+          : MyImage,
+      },
+    ]);
     setNouvelEtudiant({
       nompr: '',
       email: '',
@@ -95,18 +108,19 @@ function App() {
       filiere: '',
       groupe: '',
       ville: '',
+      image: null,
     });
   }
 
-  function supprimerEtudiant(etudiantASupprimer) {
+  function supprimerEtudiant(id) {
     setEtudiants((precedents) =>
-      precedents.filter((etudiant) => etudiant !== etudiantASupprimer)
+      precedents.filter((etudiant) => etudiant.id !== id)
     );
   }
-  function modifierEtudiant(emailInitial, informationsModifiees) {
+  function modifierEtudiant(id, informationsModifiees) {
     setEtudiants((precedents) =>
       precedents.map((e) =>
-        e.email === emailInitial ? { ...e, ...informationsModifiees } : e
+        e.id === id ? { ...e, ...informationsModifiees } : e
       )
     );
   }
@@ -115,51 +129,11 @@ function App() {
       <Header />
       <Navbar />
 
-      <form onSubmit={ajouterEtudiant} className="ajout-form">
-        <input
-          type="text"
-          name="nompr"
-          placeholder="Nom et prénom"
-          value={nouvelEtudiant.nompr}
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={nouvelEtudiant.email}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="tel"
-          placeholder="Téléphone"
-          value={nouvelEtudiant.tel}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="filiere"
-          placeholder="Filière"
-          value={nouvelEtudiant.filiere}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="groupe"
-          placeholder="Groupe"
-          value={nouvelEtudiant.groupe}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="ville"
-          placeholder="Ville"
-          value={nouvelEtudiant.ville}
-          onChange={handleChange}
-        />
-        <button type="submit">Ajouter Etudiant</button>
-      </form>
+      <StudentForm
+        nouvelEtudiant={nouvelEtudiant}
+        onChange={handleChange}
+        onSubmit={ajouterEtudiant}
+      />
 
       <div className="filtre-filiere">
         <label htmlFor="filtre-filiere">Filtrer par filière :</label>
@@ -180,7 +154,7 @@ function App() {
       <main id="etudiants" className="fiche">
         {etudiantsFiltres.map((etudiant) => (
           <StudentCard
-            key={`${etudiant.email}-${etudiant.nompr}`}
+            key={etudiant.id}
             nompr={etudiant.nompr}
             email={etudiant.email}
             tel={etudiant.tel}
@@ -188,15 +162,15 @@ function App() {
             groupe={etudiant.groupe}
             ville={etudiant.ville}
             image={etudiant.image}
-            onDelete={() => supprimerEtudiant(etudiant)}
+            onDelete={() => supprimerEtudiant(etudiant.id)}
             onSave={(informationsModifiees) =>
-              modifierEtudiant(etudiant.email, informationsModifiees)
+              modifierEtudiant(etudiant.id, informationsModifiees)
             }
           />
         ))}
       </main>
 
-      <Counter />
+
       <Footer />
     </div>
   );
