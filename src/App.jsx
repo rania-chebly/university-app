@@ -54,17 +54,8 @@ function App() {
       image: Image3,
     },
   ]);
-
-  const [nouvelEtudiant, setNouvelEtudiant] = useState({
-    nompr: '',
-    email: '',
-    tel: '',
-    filiere: '',
-    groupe: '',
-    ville: '',
-    image: null,
-  });
   const [filiereChoisie, setFiliereChoisie] = useState('');
+  const [etudiantAModifier, setEtudiantAModifier] = useState(null);
 
   const filieres = [...new Set(etudiants.map((etudiant) => etudiant.filiere))];
   const etudiantsFiltres = etudiants.filter(
@@ -72,67 +63,48 @@ function App() {
       filiereChoisie === '' || etudiant.filiere === filiereChoisie
   );
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-    const fieldValue = event.target.type === 'file'
-      ? event.target.files[0]
-      : value;
-
-    setNouvelEtudiant((precedent) => ({
-      ...precedent,
-      [name]: fieldValue,
-    }));
-  }
-
-  function ajouterEtudiant(event) {
-    event.preventDefault();
-
-    if (!nouvelEtudiant.nompr || !nouvelEtudiant.email || !nouvelEtudiant.tel) {
-      return;
-    }
-
+  function ajouterEtudiant(nouvelEtudiant) {
     setEtudiants((precedents) => [
       ...precedents,
       {
         ...nouvelEtudiant,
-        id: Math.max(0, ...precedents.map((etudiant) => etudiant.id)) + 1,
-        image: nouvelEtudiant.image
-          ? URL.createObjectURL(nouvelEtudiant.image)
-          : MyImage,
+        id: Date.now(),
+        image: nouvelEtudiant.image || MyImage,
       },
     ]);
-    setNouvelEtudiant({
-      nompr: '',
-      email: '',
-      tel: '',
-      filiere: '',
-      groupe: '',
-      ville: '',
-      image: null,
-    });
   }
 
   function supprimerEtudiant(id) {
     setEtudiants((precedents) =>
       precedents.filter((etudiant) => etudiant.id !== id)
     );
+    if (etudiantAModifier?.id === id) {
+      setEtudiantAModifier(null);
+    }
   }
-  function modifierEtudiant(id, informationsModifiees) {
+
+  function modifierEtudiant(informationsModifiees) {
     setEtudiants((precedents) =>
       precedents.map((e) =>
-        e.id === id ? { ...e, ...informationsModifiees } : e
+        e.id === etudiantAModifier.id
+          ? { ...e, ...informationsModifiees, id: e.id }
+          : e
       )
     );
+    setEtudiantAModifier(null);
   }
+
   return (
     <div>
       <Header />
       <Navbar />
 
       <StudentForm
-        nouvelEtudiant={nouvelEtudiant}
-        onChange={handleChange}
-        onSubmit={ajouterEtudiant}
+        key={etudiantAModifier?.id ?? 'nouveau'}
+        etudiantAModifier={etudiantAModifier}
+        onAjouter={ajouterEtudiant}
+        onModifier={modifierEtudiant}
+        onAnnuler={() => setEtudiantAModifier(null)}
       />
 
       <div className="filtre-filiere">
@@ -163,12 +135,11 @@ function App() {
             ville={etudiant.ville}
             image={etudiant.image}
             onDelete={() => supprimerEtudiant(etudiant.id)}
-            onSave={(informationsModifiees) =>
-              modifierEtudiant(etudiant.id, informationsModifiees)
-            }
+            onModifier={() => setEtudiantAModifier(etudiant)}
           />
         ))}
       </main>
+
 
 
       <Footer />

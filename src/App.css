@@ -75,6 +75,54 @@ button:hover {
   width: 100%;
   padding: 8px;
 }
+.formulaire-section {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 2px solid #7b9acc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+.formulaire-section h2 {
+  margin-top: 0;
+  color: palevioletred;
+}
+.ajout-form {
+  display: grid;
+  gap: 8px;
+  text-align: left;
+}
+.ajout-form label {
+  font-weight: bold;
+  margin-top: 4px;
+}
+.ajout-form input,
+.ajout-form select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #b4b4b4;
+  border-radius: 6px;
+}
+.champ-erreur {
+  color: #b00020;
+  font-size: 14px;
+}
+.form-image-preview {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 8px auto 0;
+}
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.annuler-button {
+  background-color: #ddd;
+}
 .filtre-filiere {
   display: flex;
   justify-content: center;
