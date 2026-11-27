@@ -19,8 +19,8 @@
 
 
 .brand-logo {
-  width: 200px;
-  height: 200px;
+  width: 88px;
+  height: 88px;
   border-radius: 15px;
   display: flex;
   align-items: center;
@@ -46,7 +46,7 @@
 
 .brand-text p {
   margin: 6px 0 0;
-  color: #d5e5f7;
+  color: #fff3f7;
   font-size: 14px;
 }
 
@@ -56,10 +56,10 @@
 
 .header-badge {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.2);
   padding: 6px 12px;
   border-radius: 20px;
-  font-size: 20px;
+  font-size: 12px;
   letter-spacing: 1px;
 }
 
@@ -70,8 +70,8 @@
 
 .header-info p {
   margin: 0;
-  color: #d5e5f7;
-  font-size: 20px;
+  color: #fff3f7;
+  font-size: 15px;
 }
 
 @media (max-width: 600px) {
@@ -85,5 +85,10 @@
 
   .header-info {
     text-align: left;
+  }
+
+  .brand-logo {
+    width: 64px;
+    height: 64px;
   }
 }

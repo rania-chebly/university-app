@@ -1,0 +1,42 @@
+.detail-etudiant {
+  width: min(100% - 40px, 700px);
+  box-sizing: border-box;
+  margin: 36px auto;
+  padding: clamp(24px, 5vw, 42px);
+  border: 1px solid #f0d7e0;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 12px 35px rgba(105, 46, 68, 0.08);
+  text-align: center;
+}
+
+.detail-etudiant h2 {
+  margin: 22px 0;
+  color: #793b52;
+}
+
+.detail-etudiant .etudiant-image {
+  width: 150px;
+  height: 150px;
+  border: 4px solid #f3cfdb;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.detail-informations {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.detail-informations p {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fff6f9;
+  overflow-wrap: anywhere;
+}
+
+.detail-informations a {
+  color: #9b3c5e;
+}

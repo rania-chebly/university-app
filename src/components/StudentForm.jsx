@@ -15,8 +15,11 @@ function StudentForm({ etudiantAModifier, onAjouter, onModifier, onAnnuler }) {
     ...(etudiantAModifier ?? {}),
   });
   const [erreurs, setErreurs] = useState({});
+  const [succes, setSucces] = useState('');
   function handleChange(event) {
     const { name, value, files, type } = event.target;
+    setSucces('');
+
     if (type === 'file') {
       const fichier = files?.[0];
       if (fichier) {
@@ -24,6 +27,7 @@ function StudentForm({ etudiantAModifier, onAjouter, onModifier, onAnnuler }) {
           ...precedent,
           image: URL.createObjectURL(fichier),
         }));
+        setErreurs((precedentes) => ({ ...precedentes, image: undefined }));
       }
       return;
     }
@@ -43,25 +47,13 @@ function StudentForm({ etudiantAModifier, onAjouter, onModifier, onAnnuler }) {
     }
     if (!etudiant.email.trim()) {
       nouvellesErreurs.email = "L'adresse email est obligatoire.";
-    }else if (
-    !etudiant.email.includes("@") ||
-    !etudiant.email.includes(".") ||
-    etudiant.email.startsWith("@") ||
-    etudiant.email.endsWith("@") ||
-    etudiant.email.startsWith(".") ||
-    etudiant.email.endsWith(".") ||
-    etudiant.email.includes(" ") ||
-    etudiant.email.indexOf("@") !== etudiant.email.lastIndexOf("@") ||
-    etudiant.email.indexOf(".") < etudiant.email.indexOf("@")
-) {
-    nouvellesErreurs.email = "Le format de l'email est invalide.";
-}
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(etudiant.email)) {
+      nouvellesErreurs.email = "Le format de l'email est invalide.";
+    }
     if (!etudiant.tel.trim()) {
       nouvellesErreurs.tel = 'Le téléphone est obligatoire.';
-    } else if (
-    etudiant.tel.length !== 8 ||
-    isNaN(etudiant.tel)){
-      nouvellesErreurs.tel = 'Le téléphone doit contenir 8 à 15 caractères valides.';
+    } else if (!/^\d{8,15}$/.test(etudiant.tel)) {
+      nouvellesErreurs.tel = 'Le téléphone doit contenir entre 8 et 15 chiffres.';
     }
     if (!etudiant.filiere) {
       nouvellesErreurs.filiere = 'Choisissez une filière.';
@@ -70,9 +62,6 @@ function StudentForm({ etudiantAModifier, onAjouter, onModifier, onAnnuler }) {
     nouvellesErreurs.groupe = "Le groupe est obligatoire.";}
     if (!etudiant.ville.trim()) {
     nouvellesErreurs.ville = "La ville est obligatoire.";
-}
-   if (!etudiant.image) {
-    nouvellesErreurs.image = "L'image est obligatoire.";
 }
     setErreurs(nouvellesErreurs);
     return Object.keys(nouvellesErreurs).length === 0;
@@ -86,6 +75,7 @@ function StudentForm({ etudiantAModifier, onAjouter, onModifier, onAnnuler }) {
       onAjouter(etudiant);
       setEtudiant({ ...ETUDIANT_INITIAL });
       setErreurs({});
+      setSucces('Étudiant ajouté avec succès.');
     }
   }
   const modeModification = Boolean(etudiantAModifier);
@@ -93,6 +83,11 @@ function StudentForm({ etudiantAModifier, onAjouter, onModifier, onAnnuler }) {
     <section className="formulaire-section">
       <h2>{modeModification ? "Modifier l'étudiant" : 'Ajouter un étudiant'}</h2>
       <form onSubmit={handleSubmit} className="ajout-form" noValidate>
+        {succes && (
+          <p className="formulaire-succes" role="status">
+            {succes}
+          </p>
+        )}
         <label htmlFor="nompr">Nom et prénom</label>
         <input
           id="nompr"

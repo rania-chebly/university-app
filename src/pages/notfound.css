@@ -1,0 +1,15 @@
+.not-found {
+  text-align: center;
+}
+
+.not-found h1 {
+  margin: 12px 0;
+  color: #793b52;
+  font-size: clamp(30px, 5vw, 44px);
+  letter-spacing: -0.03em;
+}
+
+.not-found p {
+  color: #68515b;
+  line-height: 1.7;
+}

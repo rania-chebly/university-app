@@ -1,20 +1,21 @@
 
 import './Navbar.css';
+import { NavLink } from 'react-router-dom';
 
 function Navbar() {
   return (
     <nav className="navbar">
-      <a className="nav-link active"  href="#accueil">
-        <span>⌂</span> Accueil
-      </a>
+      <NavLink className="nav-link" to="/" end>
+        ⌂ Accueil
+      </NavLink>
 
-      <a className="nav-link" href="#etudiants">
-        <span>♙</span> Étudiants
-      </a>
+      <NavLink className="nav-link" to="/etudiants">
+        ♙ Étudiants
+      </NavLink>
 
-      <a className="nav-link" href="#contact">
-        <span>✉</span> Contact
-      </a>
+      <NavLink className="nav-link" to="/contact">
+        ✉ Contact
+      </NavLink>
     </nav>
   );
 }

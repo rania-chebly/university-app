@@ -1,0 +1,21 @@
+.home {
+  text-align: center;
+}
+
+.home h1 {
+  margin: 12px 0;
+  color: #793b52;
+  font-size: clamp(30px, 5vw, 44px);
+  letter-spacing: -0.03em;
+}
+
+.home h2 {
+  margin: 0 0 16px;
+  color: #a64c6b;
+  font-size: clamp(18px, 3vw, 24px);
+}
+
+.home p {
+  color: #68515b;
+  line-height: 1.7;
+}

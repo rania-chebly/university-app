@@ -1,0 +1,29 @@
+.contact h1 {
+  margin: 12px 0;
+  color: #793b52;
+  font-size: clamp(30px, 5vw, 44px);
+  letter-spacing: -0.03em;
+}
+
+.contact > p,
+.contact address {
+  color: #68515b;
+  line-height: 1.7;
+}
+
+.contact address {
+  margin: 22px 0 0;
+  font-style: normal;
+}
+
+.contact address p + p {
+  margin-top: 8px;
+}
+
+.contact address a {
+  color: #9b3c5e;
+}
+
+.contact-link {
+  margin-top: 24px;
+}
